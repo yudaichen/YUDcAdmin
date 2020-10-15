@@ -1,18 +1,3 @@
-/*
- Navicat MySQL Data Transfer
-
- Source Server         : 阿里云
- Source Server Type    : MySQL
- Source Server Version : 50731
- Source Host           : 59.110.221.160:3306
- Source Schema         : Transfer
-
- Target Server Type    : MySQL
- Target Server Version : 50731
- File Encoding         : 65001
-
- Date: 15/10/2020 09:35:52
-*/
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
