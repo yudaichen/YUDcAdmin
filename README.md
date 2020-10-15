@@ -5,6 +5,8 @@
 因为时间仓促，没有文档还在撰写，作者后期会更新详细的文档，方便大家阅读理解。
 比较复杂的代码块都加了详细的注解，可扩展性高。
 
+你只用修改System_provide下的application.yml，spring.datasource.url：修改为你的数据连接就OK了
+
 下面是演示图片：
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/1015/091157_ca8a93e0_7620104.png "I9{6%5)}R]C@{L0]5~RTD4A.png")
 
