@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/aceAdminLayout/FunctionSetting :: header">
+    <title>用户管理</title>
+</head>
+
+<body class="no-skin">
+
+<div th:include="/aceAdminLayout/FunctionSetting :: navbar"></div>
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+    </script><!--main-container的js-->
+    <script type="text/javascript">
+        try{ace.settings.loadState('sidebar')}catch(e){}
+    </script><!--Sidebar的js-->
+    <div th:replace="/aceAdminLayout/FunctionSetting :: sidebar"></div><!--菜单，-->
+
+
+    <div class="main-content">
+        <!--标签面包屑-->
+        <div class="main-content-inner">
+            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                        <a href="/">回到首页</a>
+                    </li>
+
+                    <li>
+                        <a href="#">后台管理</a>
+                    </li>
+                    <li class="active">Blank Page</li>
+                </ul>
+            </div>
+            <!--标签面包屑结束-->
+
+
+            <div class="page-content">
+                <div th:include="/aceAdminLayout/FunctionSetting.html :: aceSettings"></div><!--全局设置setting-->
+
+                <!--中间自定义的页面开始-->
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="col-xs-3">
+                            <span>选择资源数据库名称：</span>
+                            <select class="select" id="selectID">
+                                <option value="1">SysConfig</option>
+                                <option value="2">sys_post</option>
+                            </select>
+                        </br></br>
+
+                                <span>设置url路径:</span>
+                                <input type="text" id="resourcesUrl" placeholder="application的上级目录">
+                            </br>
+                            </br>
+
+
+                            <button type="button" class="btn btn-white btn-info" id="submitSelect">
+                                <i class="ace-icon fa fa-check">
+                                </i>
+                                提交
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>  <!--中间自定义的页面结束-->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div th:include="/aceAdminLayout/FunctionSetting.html :: footerPage"></div><!--页脚-->
+</div><!-- /.main-container -->
+
+<div th:include="/aceAdminLayout/FunctionSetting.html :: footerJs"></div><!--页脚Js-->
+<script type="text/javascript">
+
+    $('#submitSelect').click(function () {
+            var url=$("#resourcesUrl").val();
+
+            var filename=$("#selectID option:selected").text();
+            $.ajax({
+                url: '/cretefile',
+                type: "post",
+                contentType: "application/json;charsetset=UTF-8",//必须
+                dataType: "text",//必须
+                data: JSON.stringify({url:url,filename:filename}),
+                success: function (data){
+                    if(data==="true")
+                        alert("成功了");
+                    else
+                        alert("失败了");
+                }
+            })
+        }
+
+    )
+</script>
+</body>
+</html>

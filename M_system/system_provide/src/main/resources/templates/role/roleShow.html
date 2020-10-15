@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/aceAdminLayout/FunctionSetting :: header">
+    <title>角色管理</title>
+    <script th:src="@{../../static/iframeResizer/iframeResizer.contentWindow.min.js}"></script>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;background-color: white" scroll="no">
+<div class="col-xs-12">
+
+    <div class="row">
+        <div class="col-xs-12" style="box-shadow: 0px 0px 10px 5px #fcfcfc;border-radius:20px; padding: 10px 10px 10px 10px;border:1px solid #000">
+            <div class="col-xs-2">
+                <input type="text" id="SelectRoleName" placeholder="角色名称:">
+            </div>
+            <div class="col-xs-2">
+               <input type="text" id="SelectRoleKey" placeholder="权限字符串:">
+            </div>
+            <div class="col-xs-3">
+               角色状态:
+                <select class="select" id="SelectRoleStatus">
+                    <option value="0">正常</option>
+                    <option value="1">停用</option>
+                </select>
+            </div>
+            <div class="col-xs-5">
+                <button class="btn btn-sm btn-success"  onclick="selectRoleTop()">
+                    <i class="fa fa-search">
+                    </i>
+                    &nbsp;搜索
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="cleanRoleButton()">
+                    <i class="ace-icon fa fa-undo">
+                    </i>
+                    &nbsp;重置
+                </button>
+                <button class="btn btn-sm btn-default" onclick="RefreshRolePage()">
+                    <i class="fa fa-refresh">
+                    </i>
+                    刷新
+                </button>
+                <button id ="addRoleButton" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addexampleModal" data-whatever="@fat" style="visibility: hidden;">
+                    <i class="glyphicon glyphicon-export">
+                    </i>
+                增加角色
+                </button>
+
+                </select>
+            </div>
+        </div>
+    </div>
+
+    </br>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="col-lg-12">
+            <table id="RoleTable" style="table-layout: fixed"></table>
+            </div>
+
+
+            <div class="col-lg-12">
+            <div class="PageButton"></div>
+            </div>
+
+        </div>
+        <!--绑定用户的弹窗-->
+        <div class="modal fade" id="addBinding" tabindex="-1" role="dialog" aria-labelledby="addModalBinding" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalBinding">设置角色</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="bindingRoleId" class="col-form-label">角色ID:</label>
+                                <textarea type="text" class="form-control" id="bindingRoleId" name="bindingRoleId" disabled="disabled"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="bindingUserId" class="col-form-label">用户的id:</label>
+                                <textarea class="form-control" id="bindingUserId" name="bindingUserId"></textarea>
+                            </div>
+
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                            <button type="button" id="removeByBinding" class="btn btn-white" value="submit"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i>解除绑定</button>
+                            <button type="button" id="GoToaddBinding" class="btn btn-white btn-info" value="submit">  <i class="ace-icon fa fa-check">
+                            </i>提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--绑定用户的弹窗结束-->
+
+        <!--隐藏的弹窗-->
+        <div class="modal fade" id="showexampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">修改角色信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="roleId" class="col-form-label">角色ID:</label>
+                                <textarea type="text" class="form-control" id="roleId" name="roleId" disabled="disabled"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="roleName" class="col-form-label">角色名称:</label>
+                                <textarea class="form-control" id="roleName" disabled="roleName"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="roleSort" class="col-form-label">显示顺序:</label>
+                                <textarea class="form-control" name="roleSort" id="roleSort"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="roleKey" class="col-form-label">角色权限:</label>
+                                <textarea class="form-control" id="roleKey" name="roleKey"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataScope" class="col-form-label">数据范围:</label>
+                                <textarea class="loginName" id="dataScope" name="dataScope" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="status" class="col-form-label">角色状态:</label>
+                                <textarea class="form-control" id="status" name="status"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="createBy" class="col-form-label">创建者:</label>
+                                <textarea class="form-control" id="createBy" name="createBy"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateBy" class="col-form-label">更新者:</label>
+                                <textarea class="form-control" id="updateBy" name="updateBy"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark" class="col-form-label">备注:</label>
+                                <textarea class="form-control" id="remark" name="remark"></textarea>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                            <button type="button" id="GoUpdate" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
+                            </i>提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--隐藏的弹窗结束-->
+
+        <!--add的弹窗-->
+        <div class="modal fade" id="addexampleModal" tabindex="-1" role="dialog" aria-labelledby="addexampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addexampleModalLabel">增加角色信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="addroleName" class="col-form-label">角色名称:</label>
+                                <textarea class="form-control" id="addroleName" name="roleName"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="addroleSort" class="col-form-label">显示顺序:</label>
+                                <textarea class="form-control" name="addroleSort" id="addroleSort"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="adddataScope" class="col-form-label">数据范围:</label>
+                                <textarea class="loginName" id="adddataScope" name="adddataScope" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="addstatus" class="col-form-label">角色状态:</label>
+                                <textarea class="form-control" id="addstatus" name="addstatus"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="addroleKey" class="col-form-label">角色权限:</label>
+                                <textarea class="form-control" id="addroleKey" name="addroleKey"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="addcreateBy" class="col-form-label">创建者:</label>
+                                <textarea class="form-control" id="addcreateBy" name="addcreateBy"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="addupdateBy" class="col-form-label">更新者:</label>
+                                <textarea class="form-control" id="addupdateBy" name="addupdateBy"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="addremark" class="col-form-label">备注:</label>
+                                <textarea class="form-control" id="addremark" name="addremark"></textarea>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                            <button type="button" id="addByRole" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
+                            </i>提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--add的弹窗结束-->
+    </div>
+</div>
+<div th:include="/aceAdminLayout/FunctionSetting.html :: footerJs"></div><!--页脚Js-->
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><!--通过cookie获取菜单-->
+
+<!--table相关的操作-->
+<script>
+    var page=1;
+    /*初始化加载*/
+    $(document).ready(function () {
+
+        createRoleSelect();
+
+        let SysRole=new createRoleSelect();
+
+        ajaxRolePostTable(page,SysRole);
+
+    })
+
+    /*创造搜索条件*/
+    function createRoleSelect(){
+        this.roleName=$("#SelectRoleName").val();
+        this.roleKey=$("#SelectRoleKey").val();
+        this.status=$("#SelectRoleStatus option:selected").val().toString();
+    }
+
+    /*请求获取数据*/
+   function ajaxRolePostTable(page,SysRole){
+       $(".PageButton").empty();
+       $('#RoleTable').bootstrapTable('destroy');
+       $.ajax({
+           url: '/system/sysrole/getAllRolePage/'+page+"/10",
+           type:"post",
+           contentType: "application/json;charsetset=UTF-8",//必须
+           dataType: "json",//必须
+           data:JSON.stringify(SysRole),
+           success: function (data) {
+
+               createRoleTable(data.data.ListRole);
+               getTableRoleButton();
+               createRolePageButton(data.data.total)
+           }
+       })
+   }
+    function createRoleTable(dataRoleTable){
+        $("#RoleTable").bootstrapTable({
+            data: dataRoleTable,
+            idField: 'userId',
+            dataType: 'jsonp',
+            columns : [ {
+                title : '角色ID',
+                field : 'roleId',
+                width: '3%',
+                visible: false
+                // sortable : true
+            }, {
+                title : '角色名',
+                field : 'roleName',
+                width: '5%',
+                // sortable : true
+            },{
+                title : '权限',
+                field : 'roleKey',
+                width: '3%',
+                // sortable : true,
+            },{
+                title : '数据范围',
+                field : 'dataScope',
+                width: '3%',
+                // sortable : true,
+                formatter: function (value, row, index) {
+                    if (row.dataScope === '1')
+                        return '<span>全部</span>';
+                    if (row.dataScope === '2')
+                        return '<span>自定义</span>';
+                    if (row.dataScope === '3')
+                        return '<span>本部门</span>';
+                    if (row.dataScope === '4')
+                        return '<span>本部及以下</span>';
+                }
+            },{
+                title : '状态',
+                field : 'status',
+                width: '3%',
+                // sortable : true,
+                formatter: function (value, row, index) {
+                    if (row.status === '0')
+                        return '<i class="glyphicon glyphicon-sunglasses"></i>';
+                    if (row.status === '1')
+                        return '<i class="glyphicon glyphicon-off"></i>';
+                }
+            },{
+                title : '操作',
+                width: '20%',
+                align: "center",
+                // sortable : true,
+                formatter: function (value, row, index) {
+                    return "  <span class=\"group-remove\" style=\"visibility: hidden;\">\n" +
+                        "                            <a href=\"/system/sysrole/removeRoleById/"+row.roleId+"\">\n" +
+                        "                                <button class=\"btn btn-xs btn-danger\">\n" +
+                        "                                    <i class=\"ace-icon fa fa-trash-o bigger-120\">删除角色</i>\n" +
+                        "                                </button>\n" +
+                        "                            </a>\n" +
+                        "                        </span>\n" +
+                        "                        <span class=\"group-update\" style=\"visibility: hidden;\">\n" +
+                        "                            <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#showexampleModal\" data-whatever=\""+row.roleId+"\">\n" +
+                        "                                <i class=\"glyphicon glyphicon-pencil\">修改角色</i>\n" +
+                        "                            </button>\n" +
+                        "                        </span>\n" +
+                        "\n" +
+                        "                        <span class=\"group-bindingUser\" style=\"visibility: hidden;\">\n" +
+                        "\n" +
+                        "                            <button class=\"btn btn-xs btn-green\" data-toggle=\"modal\" data-target=\"#addBinding\" data-whatever=\""+row.roleId+"\">\n" +
+                        "                                <i class='glyphicon glyphicon-transfer'></i>设置角色\n" +
+                        "                            </button>\n" +
+                        "                        </span>";
+                }
+            },]
+        })
+    }
+
+    /*获取按钮操作按钮*/
+    function getTableRoleButton() {
+        $.ajax({
+            async: true,
+            url: '/system/sysuser/getMenu',
+            type: "post",
+            contentType: "application/json;charsetset=UTF-8",//必须
+            dataType: "json",//必须
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+
+                    if (data[i].url === "/system/sysrole/removeRoleById")//增加删除角色按钮
+                        $(".group-remove").css('visibility','visible');
+                    if (data[i].url === "/system/sysrole/addOneRole")//增加add角色按钮
+                        $("#addRoleButton").css('visibility','visible');
+                    if (data[i].url === "/system/sysrole/updateRole")//增加更新按钮
+                        $(".group-update").css('visibility','visible');
+                    if (data[i].url === "/system/sysrole/addBinding")//增加角色绑定用户按钮
+                        $(".group-bindingUser").css('visibility','visible');
+                }
+            }
+        });
+    }
+
+
+    /*创建分页的按钮*/
+    function createRolePageButton(totalNum){
+        if (totalNum !== undefined && totalNum !== "" &&  totalNum !== 0) {
+            let total = Math.ceil(totalNum / 10);
+            let htmlPageButton="";
+            htmlPageButton += " <div class=\"col-xs-5\">";
+            if (total !== 1&&page>0) {
+                htmlPageButton += "<button type=\"button\" class=\"btn btn-success\" onclick='lastRolePage()'>上一页</button>";
+
+            }
+            if (total !== page) {
+                htmlPageButton += "<button type=\"button\" class=\"btn btn-success\" onclick=\"nextRolePage("+total+")\">下一页</button>";
+            }
+            htmlPageButton += "</div>";
+            htmlPageButton += "<div class=\"col-xs-3\">" +
+                "<span>共有" + totalNum + "条数据，跳转到页面：</span>" +
+                "<select class=\"selectRolePage\" id=\"selectRolePage\">";
+
+            for (let i = 0; i < total; i++) {
+                htmlPageButton += "<option value=\"" + (i+1) + "\">第" + (i+1) + "页</option>";
+            }
+            htmlPageButton += "</select><button type=\"button\" class=\"btn btn-white btn-inverse btn-sm\" onclick=\"selectRoleButton()\"><i class=\"glyphicon glyphicon-forward\"></i></button></div>";
+            $(".PageButton").append(htmlPageButton);
+        }
+    }
+
+    /*上一页*/
+    function lastRolePage(){
+        page=--page;
+        if (page>0){
+            createRoleSelect();
+
+            let SysRole=new createRoleSelect();
+
+            ajaxRolePostTable(page,SysRole);
+        }
+        else {
+            ++page;
+        }
+    }
+
+    /*下一页*/
+    function nextRolePage(total){
+        page=++page;
+        if(total>=page){
+            createRoleSelect();
+
+            let SysRole=new createRoleSelect();
+
+            ajaxRolePostTable(page,SysRole);
+        }else {
+            --page;
+        }
+    }
+
+    /*角色分页跳转工具*/
+    function selectRoleButton(){
+        page=$("#selectRolePage option:selected").val();
+        createRoleSelect();
+
+        let SysRole=new createRoleSelect();
+
+        ajaxRolePostTable(page,SysRole);
+    }
+    /*top搜索功能*/
+    function selectRoleTop(){
+        createRoleSelect();
+
+        let SysRole=new createRoleSelect();
+
+        ajaxRolePostTable(page,SysRole);
+    }
+
+    /*清除top当中的数据*/
+    function cleanRoleButton(){
+        $("#SelectRoleName").val('');
+        $("#SelectRoleKey").val('');
+        $("#SelectRoleStatus option:first").prop("selected", 'selected')
+    }
+
+    /*刷新当前页面*/
+    function RefreshRolePage(){
+        createRoleSelect();
+
+        let SysRole=new createRoleSelect();
+
+        ajaxRolePostTable(page,SysRole);
+    }
+</script>
+
+
+<!--模态框相关的操作-->
+<script>
+    /*模态框Role修改值 按钮提交*/
+    $('#GoUpdate').click(function() {
+        function Role(){
+            this.roleId = $('#roleId').val();
+            this.roleKey = $('#roleKey').val();
+            this.roleName = $('#roleName').val();
+            this.roleSort= $('#roleSort').val();
+            this.dataScope = $('#dataScope').val();
+            this.status = $('#status').val();
+            this.createBy = $('#createBy').val();
+            this.updateBy = $('#updateBy').val();
+            this.remark = $('#remark').val();
+        }
+
+        var Role = new Role();
+        console.log(JSON.stringify(Role));
+        $.ajax({
+            type : "post",
+            url: "/system/sysrole/updateRole",
+            data: JSON.stringify(Role),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+    })
+
+
+
+    /*模态框Role修改值时，页面弹框获取后端的值,映射到模态框*/
+    $('#showexampleModal').on('show.bs.modal', function (event){
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        var modal = $(this);
+        $.ajax({
+            url: "/system/sysrole/getRoleById/"+id,
+            type: "get",
+            dataType: "json",
+            success: function (date){
+                modal.find(' #roleId' ).val(date.roleId);
+                modal.find(' #roleName' ).val(date.roleName);
+                modal.find(' #roleSort' ).val(date.roleSort);
+                modal.find(' #dataScope' ).val(date.dataScope);
+                modal.find(' #status' ).val(date.status);
+                modal.find(' #createBy' ).val(date.createBy);
+                modal.find(' #updateBy' ).val(date.updateBy);
+                modal.find(' #remark' ).val(date.remark);
+                modal.find(' #roleKey' ).val(date.roleKey);
+            }
+        })
+    })
+
+
+    /*返回跳转*/
+    function backIndex(){
+        window.location.href="/system/sysrole/getAllRole"
+    }
+
+
+   /*增加角色 按钮提交*/
+    $('#addByRole').click(function() {
+        function addRole(){
+            this.roleName = $('#addroleName').val();
+            this.roleSort= $('#addroleSort').val();
+            this.dataScope = $('#adddataScope').val();
+            this.status = $('#addstatus').val();
+            this.createBy = $('#addcreateBy').val();
+            this.updateBy = $('#addupdateBy').val();
+            this.remark = $('#addremark').val();
+            this.roleKey = $('#addroleKey').val();
+
+        }
+
+        var addRole = new addRole();
+        console.log(JSON.stringify(addRole));
+        $.ajax({
+            type : "post",
+            url: "/system/sysrole/addOneRole",
+            data: JSON.stringify(addRole),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+        window.location.replace("/system/sysrole/getAllRole");
+    })
+
+
+      /*角色绑定用户，打开模态框*/
+    $('#addBinding').on('show.bs.modal', function (event){
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        var modal = $(this);
+        modal.find(' #bindingRoleId' ).val(id);
+    })
+
+
+    /*角色绑定用户 按钮提交*/
+    $('#GoToaddBinding').click(function(){
+        function bindings() {
+            this.userId=$('#bindingUserId').val();
+            this.roleId=$('#bindingRoleId').val();
+        }
+        var bindings = new bindings();
+        $.ajax({
+            type : "post",
+            url: "/system/sysrole/addBinding",
+            data: JSON.stringify(bindings),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+        window.location.replace("/system/sysrole/getAllRole");
+    })
+
+
+    /*解除 角色与用户的绑定 提交按钮监控*/
+    $('#removeByBinding').click(function(){
+        function bindings() {
+            this.userId=$('#bindingUserId').val();
+            this.roleId=$('#bindingRoleId').val();
+        }
+        var bindings = new bindings();
+        $.ajax({
+            type : "post",
+            url: "/system/sysrole/removeBinding",
+            data: JSON.stringify(bindings),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+        window.location.replace("/system/sysrole/getAllRole");
+    })
+</script>
+
+
+
+
+</body>
+</html>

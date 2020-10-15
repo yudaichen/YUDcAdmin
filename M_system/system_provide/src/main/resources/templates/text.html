@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--<head th:replace="/aceAdminLayout/FunctionSetting :: header">-->
+<head>
+    <title>用户管理</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+    </style>
+<script th:src="@{../../static/assets/js/jquery-2.1.4.min.js}"></script>
+
+
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;background-color: white" scroll="no">
+<div class="col-xs-12">
+    <div>
+        <p>欢迎来到角色管理系统</p>
+        <a href="/newUserShow">前往test</a>
+        <a href="/download">前往下载</a>
+    </div>
+
+</div>
+
+
+<div class="ui-layout-west">West</div>
+<div class="ui-layout-south">South</div>
+<div class="ui-layout-east">east</div>
+<script th:src="@{../../static/Layout/jquery.layout.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('body').layout({ applyDefaultStyles: true });
+    });
+</script>
+</body>
+</html>

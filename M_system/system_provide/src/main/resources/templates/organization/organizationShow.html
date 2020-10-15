@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/aceAdminLayout/FunctionSetting :: header">
+    <title>组织机构管理</title>
+    <script th:src="@{../../static/iframeResizer/iframeResizer.contentWindow.min.js}"></script>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;background-color: white" scroll="no">
+
+<div class="col-xs-12">
+    <!--搜索框开始-->
+    <div class="row">
+        <div class="col-xs-12" style="box-shadow: 0px 0px 10px 5px #fcfcfc;border-radius:20px; padding: 10px 10px 10px 10px;border:1px solid #000">
+            <div class="col-xs-3">
+             <input type="text" id="SelectOrganizationOId" placeholder="部门名称:">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" id="SelectOrganizationOAddress" placeholder="部门地址:">
+            </div>
+            <div class="col-xs-6">
+                <button class="btn btn-sm btn-success" onclick="SelectTopOrganization()">
+                    <i class="fa fa-search">
+                    </i>
+                    &nbsp;搜索
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="cleanOrganizationButton()">
+                    <i class="ace-icon fa fa-undo">
+                    </i>
+                    &nbsp;重置
+                </button>
+                <button class="btn btn-sm btn-default" onclick="RefreshOrganization()">
+                    <i class="fa fa-refresh">
+                    </i>
+                    刷新
+                </button>
+                </select>
+            </div>
+        </div>
+    </div>
+    </br>
+    <div class="col-xs-12">
+        <table id="OrganizationTable" style="table-layout: fixed;"></table><!--必须设置table-layout: fixed;才能生效-->
+    </div>
+    <!--搜索框结束-->
+
+
+
+
+    <!--add的弹窗-->
+    <div class="modal fade" id="addexampleModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addeModal">修改组织机构</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="addcode" class="col-form-label">部门编号:</label>
+                            <textarea class="form-control" id="addcode" name="code"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addaddress" class="col-form-label">部门地址:</label>
+                            <textarea class="form-control" name="addaddress" id="addaddress"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addname" class="col-form-label">部门名字:</label>
+                            <textarea class="form-control" id="addname" name="addname"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addcontact" class="col-form-label">部门联系人或负责人:</label>
+                            <textarea class="form-control" id="addcontact" name="addcontact"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addphone" class="col-form-label">联系电话:</label>
+                            <textarea class="loginName" id="addphone" name="addphone" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addpid" class="col-form-label">上级部门:</label>
+                            <textarea class="form-control" id="addpid" name="addpid"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addseq" class="col-form-label">排序:</label>
+                            <textarea class="form-control" id="addseq" name="addseq"></textarea>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                        <button type="button" id="GoToAdd" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
+                        </i>提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--add的弹窗结束-->
+
+
+    <!--隐藏的弹窗-->
+    <div class="modal fade" id="showexampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">修改组织机构</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="id" class="col-form-label">组织ID:</label>
+                            <textarea type="text" class="form-control" id="id" name="id" disabled="disabled"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="code" class="col-form-label">部门编号:</label>
+                            <textarea class="form-control" id="code" disabled="code"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">部门名字:</label>
+                            <textarea class="form-control" id="name" name="name"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-form-label">部门地址:</label>
+                            <textarea class="form-control" name="address" id="address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact" class="col-form-label">部门联系人或负责人:</label>
+                            <textarea class="form-control" id="contact" name="contact"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-form-label">联系电话:</label>
+                            <textarea class="loginName" id="phone" name="phone" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="pid" class="col-form-label">上级部门:</label>
+                            <textarea class="form-control" id="pid" name="pid"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="seq" class="col-form-label">排序:</label>
+                            <textarea class="form-control" id="seq" name="seq"></textarea>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                        <button type="button" id="GoUpdate" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
+                        </i>提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--隐藏的弹窗结束-->
+</div>
+<div th:include="/aceAdminLayout/FunctionSetting.html :: footerJs"></div>
+<script>
+    var $table=$('#OrganizationTable');
+$(document).ready(function () {
+
+    getTopSelectOrganization();
+    let organization = new getTopSelectOrganization();
+
+    creatTableTree(organization);
+})
+
+    /*向后台请求创建TableTree*/
+    function creatTableTree(organization){
+        $.ajax({
+        url: '/system/organization/getAllMainCompanyList',
+        type:"post",
+        contentType: "application/json;charsetset=UTF-8",//必须
+        dataType: "json",//必须
+        data:JSON.stringify(organization),
+        success: function (data) {
+            createTreeTable(data);
+            getOrganizationButton();
+        }
+    })}
+
+    /*生成TableTree的Html*/
+    function createTreeTable(dataTreeTable) {
+        $table.bootstrapTable({
+            data: dataTreeTable,
+            idField: 'id',
+            dataType: 'jsonp',
+            columns: [{
+                field: 'id',
+                title: 'id',
+                visible: false
+            }, {
+                title: '部门编号',
+                field: 'code',
+                width: '10%',
+            },{
+                title: '上级部门',
+                field: 'pId',
+                visible: false
+            }, {
+                title: '部门名称',
+                field: 'name',
+                width: '5%',
+                formatter: function (value, row, index) {
+                    return "<span><i class=\"glyphicon glyphicon-thumbs-up\">"+row.name+"</i></span>";
+                }
+            }, {
+                title: '部门地址',
+                field: 'address',
+                width: '5%',
+                formatter: function (value, row, index) {
+                    return "<span><i class=\"glyphicon glyphicon-globe\">"+row.address+"</i></span>";
+                }
+            }, {
+                title: '负责人',
+                field: 'contact',
+                width: '5%',
+                formatter: function (value, row, index) {
+                    return "<span><i class=\"glyphicon glyphicon-tag\">"+row.contact+"</i></span>";
+                }
+            }, {
+                title: '联系电话',
+                field: 'phone',
+                width: '5%',
+                align: "left",
+                formatter: function (value, row, index) {
+                    return "<span><i class=\"glyphicon glyphicon-phone-alt\">"+row.phone+"</i></span>";
+                }
+            }, {
+                width: '20%',
+                title: '操作',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return "    <span class=\"org-group-add\" style=\"visibility: hidden;\">\n" +
+                        "        <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#addexampleModal\" data-whatever=\"@fat\">\n" +
+                        "           <i class='glyphicon glyphicon-transfer'></i> 增加部门\n" +
+                        "        </button>\n" +
+                        "    </span>" +
+                        "    <span class=\"org-group-update\" style=\"visibility: hidden;\">\n" +
+                        "        <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#showexampleModal\" data-whatever=\""+row.id+"\">\n" +
+                        "         <i class=\"glyphicon glyphicon-pencil\"></i>   修改部门\n" +
+                        "        </button>\n" +
+                        "    </span>" +
+                        "  <span class=\"group-remove\" style=\"visibility: hidden;\">\n" +
+                        " <a href=\"/system/organization/deleteMainCompany/"+row.roleId+"\">\n" +
+                        "<button class=\"btn btn-xs btn-danger\">\n" +
+                        "<i class=\"ace-icon fa fa-trash-o bigger-120\">删除部门</i>\n" +
+                        "                                </button>\n" +
+                        "                            </a>\n" +
+                        "                        </span>\n";
+                }
+            },],
+
+            // bootstrap-table-treegrid.js 插件配置 -- start
+
+            //在哪一列展开树形
+            treeShowField: 'id',
+            //指定父id列
+            parentIdField: 'pId',
+
+            onResetView: function (data) {
+                //console.log('load');
+                $table.treegrid({
+                    initialState: 'collapsed',// 所有节点都折叠
+                    // initialState: 'expanded',// 所有节点都展开，默认展开
+                    treeColumn: 0,
+                    expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                    expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function () {
+                    //  调整页眉和页脚的大小以适合当前列的宽度  $table.bootstrapTable('resetWidth');
+                    }
+                });
+
+                //只展开树形的第一级节点
+                $table.treegrid('getRootNodes').treegrid('expand');
+
+            },
+            onCheck: function (row) {
+                var datas = $table.bootstrapTable('getData');
+                // 勾选子类
+                selectChilds(datas, row, "id", "pId", true);
+
+                // 勾选父类
+                selectParentChecked(datas, row, "id", "pId")
+
+                // 刷新数据
+                $table.bootstrapTable('load', datas);
+            },
+
+            onUncheck: function (row) {
+                var datas = $table.bootstrapTable('getData');
+                selectChilds(datas, row, "id", "pId", false);
+                $table.bootstrapTable('load', datas);
+            },
+            // bootstrap-table-treetreegrid.js 插件配置 -- end
+        });
+    }
+
+
+    /*获得按钮*/
+    function getOrganizationButton() {
+        $.ajax({
+            url: '/system/sysuser/getMenu',
+            type: "post",
+            contentType: "application/json;charsetset=UTF-8",//必须
+            dataType: "json",//必须
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+
+                    if (data[i].url === "/system/organization/deleteMainCompany")
+                        $(".org-group-remove").css('visibility', 'visible');
+
+                    if (data[i].url === "/system/organization/addMainCompany")
+                        $(".org-group-add").css('visibility', 'visible');
+
+                    if (data[i].url === "/system/organization/updateOrganization")
+                        $(".org-group-update").css('visibility', 'visible');
+
+                    if (data[i].url === "/system/organization/deleteMainCompany")
+                        $(".group-remove").css('visibility', 'visible');
+
+                }
+            }
+        })
+    }
+
+    /*获取顶部的参数，用做Ajax请求参数*/
+    function getTopSelectOrganization() {
+        this.name=$("#SelectOrganizationOId").val();
+        this.address=$("#SelectOrganizationOAddress").val();
+    }
+
+
+    /*Top条件查找*/
+    function SelectTopOrganization(){
+        $('#OrganizationTable').bootstrapTable('destroy');
+        getTopSelectOrganization();
+        let organization = new getTopSelectOrganization();
+
+        creatTableTree(organization);
+
+    }
+
+    /*清理Top中的input框的输入*/
+    function cleanOrganizationButton(){
+       $("#SelectOrganizationOId").val('');
+       $("#SelectOrganizationOAddress").val('');
+
+    }
+
+    /*刷新页面*/
+    function RefreshOrganization(){
+        $('#OrganizationTable').bootstrapTable('destroy');
+        getTopSelectOrganization();
+        let organization = new getTopSelectOrganization();
+
+        creatTableTree(organization);
+
+    }
+
+/**
+ * 选中父项时，同时选中子项
+ * @param datas 所有的数据
+ * @param row 当前数据
+ * @param id id 字段名
+ * @param pid 父id字段名
+ */
+function selectChilds(datas,row,id,pid,checked) {
+    for(var i in datas){
+        if(datas[i][pid] == row[id]){
+            datas[i].check=checked;
+            selectChilds(datas,datas[i],id,pid,checked);
+        };
+    }
+}
+
+function selectParentChecked(datas,row,id,pid){
+    for(var i in datas){
+        if(datas[i][id] == row[pid]){
+            datas[i].check=true;
+            selectParentChecked(datas,datas[i],id,pid);
+        };
+    }
+}
+
+function test() {
+    var selRows = $table.bootstrapTable("getSelections");
+    if(selRows.length == 0){
+        alert("请至少选择一行");
+        return;
+    }
+
+    var postData = "";
+    $.each(selRows,function(i) {
+        postData +=  this.id;
+        if (i < selRows.length - 1) {
+            postData += "， ";
+        }
+    });
+    alert("你选中行的 id 为："+postData);
+
+}
+
+function add(id) {
+    alert("add 方法 , id = " + id);
+}
+function del(id) {
+    alert("del 方法 , id = " + id);
+}
+function update(id) {
+    alert("update 方法 , id = " + id);
+}
+</script>
+
+<script>
+    $('#GoUpdate').click(function() {
+        function Organization(){
+            this.id = $('#id').val();
+            this.code = $('#code').val();
+            this.address = $('#address').val();
+            this.code= $('#code').val();
+            this.contact = $('#contact').val();
+            this.phone = $('#phone').val();
+            this.pid = $('#pid').val();
+            this.seq = $('#seq').val();
+            this.name = $('#name').val();
+        }
+        var Organization = new Organization();
+        console.log(JSON.stringify(Organization));
+        $.ajax({
+            type : "post",
+            url: "/system/organization/updateOrganization",
+            data: JSON.stringify(Organization),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+    })
+</script>
+
+<!--修改值时，页面弹框获取后端的值-->
+<script>
+    $('#showexampleModal').on('show.bs.modal', function (event){
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        var modal = $(this);
+        $.ajax({
+            url: "/system/organization/getByIdOrganization/"+id,
+            type: "get",
+            dataType: "json",
+            success: function (date){
+                modal.find(' #id' ).val(date.id);
+                modal.find(' #code' ).val(date.code);
+                modal.find(' #address' ).val(date.address);
+                modal.find(' #code' ).val(date.code);
+                modal.find(' #contact' ).val(date.contact);
+                modal.find(' #phone' ).val(date.phone);
+                modal.find(' #pid' ).val(date.pid);
+                modal.find(' #seq' ).val(date.seq);
+                modal.find(' #name' ).val(date.name);
+            }
+        })
+    })
+</script>
+
+
+
+<!--增加组织机构，传递后端-->
+<script>
+    $('#GoToAdd').click(function() {
+        function addOrganization(){
+            this.id = $('#addid').val();
+            this.code= $('#addcode').val();
+            this.address = $('#addaddress').val();
+            this.code = $('#addcode').val();
+            this.contact = $('#addcontact').val();
+            this.phone = $('#addphone').val();
+            this.pid = $('#addpid').val();
+            this.seq = $('#addseq').val();
+            this.name = $('#addname').val();
+
+        }
+
+        var addOrganization = new addOrganization();
+        console.log(JSON.stringify(addOrganization));
+        $.ajax({
+            type : "post",
+            url: "/system/organization/addMainCompany",
+            data: JSON.stringify(addOrganization),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+        window.location.replace("/system/organization/getAllMainCompany");
+    })
+
+</script>
+
+<!--增加组织，打开弹窗-->
+<script>
+    $('#addexampleModal').on('show.bs.modal', function (event){
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        var modal = $(this);
+    })
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+</body>
+</html>

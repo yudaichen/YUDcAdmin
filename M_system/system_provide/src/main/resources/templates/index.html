@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/aceAdminLayout/FunctionSetting :: header">
+    <title>用户管理</title>
+
+</head>
+
+<body class="no-skin">
+
+<div th:include="/aceAdminLayout/FunctionSetting :: navbar"></div>
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+    </script><!--main-container的js-->
+    <script type="text/javascript">
+        try{ace.settings.loadState('sidebar')}catch(e){}
+    </script><!--Sidebar的js-->
+    <div th:replace="/aceAdminLayout/FunctionSetting :: sidebar"></div><!--菜单，-->
+
+
+    <div class="main-content">
+        <!--标签面包屑-->
+        <div class="main-content-inner">
+            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/index">
+                    <li class="active">回到首页</li>
+                </a>
+                    </li>
+                </ul>
+            </div>
+            <!--标签面包屑结束-->
+
+
+            <div class="page-content">
+
+                <div th:include="/aceAdminLayout/FunctionSetting.html :: aceSettings"></div><!--全局设置setting-->
+
+                <!--中间自定义的页面开始-->
+                <iframe class="ifreamIndex" th:src="@{/newUserShow}" onload="this.height=this.contentWindow.document.documentElement.scrollHeight+1000;"
+                        style="overflow: auto; width: calc(100% + 10px);" th:data-id="@{/newUserShow}" scrolling="no" frameborder='0' seamless></iframe>
+                <div class="MyIframe" style="height: 100%;">
+
+
+
+                </div>
+                <!--中间自定义的页面结束-->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div th:include="/aceAdminLayout/FunctionSetting.html :: footerPage"></div><!--页脚-->
+</div><!-- /.main-container -->
+
+<div th:include="/aceAdminLayout/FunctionSetting.html :: footerJs"></div><!--页脚Js-->
+<script th:src="@{../../static/js/YuJsIndex.js}"></script>
+<script th:src="@{../../static/iframeResizer/iframeResizer.min.js}"></script>
+
+</body>
+</html>

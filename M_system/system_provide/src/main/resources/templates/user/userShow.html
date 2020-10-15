@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/aceAdminLayout/FunctionSetting :: header">
+    <title>用户管理</title>
+</head>
+
+<body class="no-skin" style="margin:0;padding:0;overflow:hidden;background-color: white" scroll="no">
+<!--中间自定义的页面开始-->
+<div class="col-xs-12">
+    <div class="row">
+        <div class="col-xs-12" style="box-shadow: 0px 0px 10px 5px #fcfcfc;border-radius:20px; padding: 10px 10px 10px 10px;border:1px solid #000">
+            <div class="col-xs-2">
+                 <input type="text" id="SelectLoginName"placeholder="登录名称:">
+            </div>
+            <div class="col-xs-2">
+                 <input type="text" id="SelectPhoneNumber" placeholder="手机号码:">
+            </div>
+            <div class="col-xs-3">
+                用户状态:
+                <select class="select" id="SelectStatus">
+                    <option value="0">正常</option>
+                    <option value="1">停用</option>
+                </select>
+            </div>
+            <div class="col-xs-5">
+                <button class="btn btn-sm btn-success" onclick="selectTop()">
+                    <i class="fa fa-search">
+                    </i>
+                    &nbsp;搜索
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="cleanInput()">
+                    <i class="ace-icon fa fa-undo">
+                    </i>
+                    &nbsp;重置
+                </button>
+                <button class="btn btn-sm btn-default" onclick="RefreshPage()">
+                    <i class="fa fa-refresh">
+                    </i>刷新
+                </button>
+                <button class="btn btn-sm btn-info" id="AddUser" data-toggle="modal" data-target="#addexampleModal" data-whatever="@fat">
+                    新增用户
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </br>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-3">
+                <div class="zTreeDemoBackground left" style="box-shadow: 0px 0px 10px 5px #fcfcfc;border-radius:20px; padding: 10px 10px 10px 10px;border:1px solid #000"><!--阴影 box-shadow 0px 0px 10px 5px #aaa border-radius:20px外边距 padding: 10px 10px 400px 10px;内边距-->
+                    <ul id="ztreeNodes" class="ztree"></ul>
+                </div>
+            </div>
+            <div class="col-xs-9">
+            <table id="UserTable" style="table-layout: fixed"></table>
+                <div class="PageButton"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--中间自定义的页面结束-->
+<!--隐藏的弹窗-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">修改管理员信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="userId" class="col-form-label">用户的id:</label>
+                        <textarea type="text" class="form-control" id="userId" name="userId" disabled="disabled"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="delFlag" class="col-form-label">是否被删除:</label>
+                        <textarea class="form-control" id="delFlag" disabled="disabled"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="deptId" class="col-form-label">部门ID:</label>
+                        <textarea class="form-control" name="deptId" id="deptId"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginName" class="col-form-label">登录账号:</label>
+                        <textarea class="loginName" id="loginName" name="loginName" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="userName" class="col-form-label">用户昵称:</label>
+                        <textarea class="form-control" id="userName" name="userName"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="userType" class="col-form-label">用户类型:</label>
+                        <textarea class="form-control" id="userType" name="userType"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">用户邮箱:</label>
+                        <textarea class="form-control" id="email" name="email"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phonenumber" class="col-form-label">手机号码:</label>
+                        <textarea class="form-control" id="phonenumber" name="phonenumber"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex" class="col-form-label">用户性别:</label>
+                        <textarea class="form-control" id="sex" name="sex"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">密码:</label>
+                        <textarea class="form-control" id="password" name="password"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="createBy" class="col-form-label">创建者:</label>
+                        <textarea class="form-control" id="createBy" name="createBy"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="col-form-label">备注:</label>
+                        <textarea class="form-control" id="remark" name="remark"></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                    <button type="button" id="GoUpdate" class="btn btn-white btn-info" value="submit">
+                        <i class="ace-icon fa fa-check">
+                        </i>提交
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--隐藏的弹窗结束-->
+
+
+<!--add的弹窗-->
+<div class="modal fade" id="addexampleModal" tabindex="-1" role="dialog" aria-labelledby="addexampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addexampleModalLabel">增加菜单</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="deptId" class="col-form-label">部门ID:</label>
+                        <textarea class="form-control" name="adddeptId" id="adddeptId"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginName" class="col-form-label">登录账号:</label>
+                        <textarea class="loginName" id="addloginName" name="addloginName" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="userName" class="col-form-label">用户昵称:</label>
+                        <textarea class="form-control" id="adduserName" name="adduserName"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="userType" class="col-form-label">用户类型:</label>
+                        <textarea class="form-control" id="adduserType" name="adduserType"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">用户邮箱:</label>
+                        <textarea class="form-control" id="addemail" name="addemail"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phonenumber" class="col-form-label">手机号码:</label>
+                        <textarea class="form-control" id="addphonenumber" name="addphonenumber"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex" class="col-form-label">用户性别:</label>
+                        <textarea class="form-control" id="addsex" name="addsex"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">密码:</label>
+                        <textarea class="form-control" id="addpassword" name="addpassword"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="createBy" class="col-form-label">创建者:</label>
+                        <textarea class="form-control" id="addcreateBy" name="addcreateBy"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="col-form-label">备注:</label>
+                        <textarea class="form-control" id="addremark" name="addremark"></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="backIndex()">返回</button>
+                    <button type="button" id="addByUser" class="btn btn-white btn-info" value="submit">
+                        <i class="ace-icon fa fa-check">
+                        </i>提交
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div th:include="/aceAdminLayout/FunctionSetting.html :: footerJs"></div><!--页脚Js-->
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><!--获取菜单-->
+
+<!--页面渲染的操作-->
+<script>
+    var page=1;
+
+    /*初始化加载*/
+    $(document).ready(function () {
+
+        createSelect();
+
+        let SysUser=new createSelect();
+
+        ajaxGetTable(page,SysUser);
+
+        initZTree();
+    })
+
+    /*初始条件对象*/
+    function createSelect(){
+        this.loginName=$("#SelectLoginName").val();
+        this.phonenumber=$("#SelectPhoneNumber").val();
+        this.status=$("#SelectStatus option:selected").val().toString();
+        this.deptId="";
+    }
+
+    /*请求获取后台数据*/
+    function ajaxGetTable(page,SysUser) {
+        $(".PageButton").empty();
+        $('#UserTable').bootstrapTable('destroy');
+        $.ajax({
+            url: '/system/sysuser/getAllUserTable/'+page+"/10",
+            type:"post",
+            contentType: "application/json;charsetset=UTF-8",//必须
+            dataType: "json",//必须
+            data:JSON.stringify(SysUser),
+            success: function (data) {
+                createTable(data.data.ListUser);
+                getTableButton();
+                createPageButton(data.data.total)
+            }
+    })
+    }
+
+
+    /*创建BootStrap Table表格*/
+    function createTable(dataTable){
+        $("#UserTable").bootstrapTable({
+            data: dataTable,
+            idField: 'userId',
+            dataType: 'jsonp',
+            columns : [ {
+                title : 'id',
+                field : 'userId',
+                width: '3%',
+                // sortable : true
+            }, {
+                title : '登录名',
+                field : 'loginName',
+                width: '5%',
+                // sortable : true
+            },{
+                title : '性别',
+                field : 'sex',
+                width: '3%',
+                // sortable : true,
+                formatter: function (value, row, index) {
+                    if (row.sex === '0')
+                        return '<span>女</span>';
+                    if (row.sex === '1')
+                        return '<span>男</span>';
+                    if (row.sex === '3')
+                        return '<span>未知</span>';
+                }
+            },{
+                title : '状态',
+                field : 'status',
+                width: '3%',
+                // sortable : true,
+                formatter: function (value, row, index) {
+                    if (row.status === '0')
+                        return '<i class="glyphicon glyphicon-sunglasses"></i>';
+                    if (row.status === '1')
+                        return '<i class="glyphicon glyphicon-off"></i>';
+                }
+            },{
+                title : '操作',
+                width: '20%',
+                align: "center",
+                // sortable : true,
+                formatter: function (value, row, index) {
+                    return "<span class=\"group-user-remove\" style=\"visibility: hidden;\">\n" +
+                        "<a href=\"/system/sysuser/removeUser/"+row.userId+"\"><button class=\"btn btn-xs btn-danger\"><i class=\"ace-icon fa fa-trash-o bigger-120\">删除用户</i></button></a>\n" +
+                        "</span><span class=\"group-user-update\" style=\"visibility: hidden;\" >\n" +
+                        "<a><button class=\"btn btn-xs btn-info\" id=\"adminupdateButton\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""+row.userId+"\"><i class=\"ace-icon fa fa-pencil bigger-120\">修改用户</i>\n" +
+                        "</button></a></span>";
+                }
+            },]
+        })
+    }
+
+    /*创建分页的按钮*/
+    function createPageButton(totalNum){
+        if (totalNum !== undefined && totalNum !== "" &&  totalNum !== 0) {
+            let total = Math.ceil(totalNum / 10);
+            let htmlPageButton="";
+            htmlPageButton += " <div class=\"col-xs-5\">";
+            if (total !== 1&&page>0) {
+                htmlPageButton += "<button type=\"button\" class=\"btn btn-success\" onclick='lastPage()'>上一页</button>";
+
+            }
+            if (total !== page) {
+                htmlPageButton += "<button type=\"button\" class=\"btn btn-success\" onclick=\"nextPage("+total+")\">下一页</button>";
+            }
+            htmlPageButton += "</div>";
+            htmlPageButton += "<div class=\"col-xs-3\">" +
+                "<span>共有" + totalNum + "条数据，跳转到页面：</span>" +
+                "<select class=\"selectPage\" id=\"selectPage\">";
+
+            for (let i = 0; i < total; i++) {
+                htmlPageButton += "<option value=\"" + (i+1) + "\">第" + (i+1) + "页</option>";
+            }
+            htmlPageButton += "</select><button type=\"button\" class=\"btn btn-white btn-inverse btn-sm\" onclick=\"selectButton()\"><i class=\"glyphicon glyphicon-forward\"></i></button></div>";
+            $(".PageButton").append(htmlPageButton);
+        }
+    }
+
+    /*上一页*/
+    function lastPage(){
+        page=--page;
+        if (page>0){
+            createSelect();
+            let SysUser=new createSelect();
+
+            ajaxGetTable(page,SysUser);
+        }
+        else {
+            ++page;
+        }
+   }
+
+    /*下一页*/
+    function nextPage(total){
+        page=++page;
+       if(total>=page){
+           createSelect();
+           let SysUser=new createSelect();
+
+           ajaxGetTable(page,SysUser);
+       }else {
+           --page;
+       }
+    }
+
+    /*跳转*/
+    function selectButton(){
+     page=$("#selectPage option:selected").val();
+        createSelect();
+
+        let SysUser=new createSelect();
+
+        ajaxGetTable(page,SysUser);
+    }
+
+    /*创建表格操作的按钮*/
+    function getTableButton(){
+        $.ajax({
+            url: '/system/sysuser/getMenu',
+            type: "post",
+            contentType: "application/json;charsetset=UTF-8",//必须
+            dataType: "json",//必须
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+
+                    if (data[i].url === "/system/sysuser/addUser")//管理员的添加
+                        $("#adminAddButton").css('visibility','visible');
+                    if (data[i].url === "/system/sysuser/updateUser")//管理员的修改
+                        $("#adminupdateButton").css('visibility','visible');
+                    if (data[i].url === "/system/sysuser/removeUser")//用户删除
+                        $(".group-user-remove").css('visibility','visible');
+                    if (data[i].url === "/system/sysuser/updateUser")//用户修改
+                        $(".group-user-update").css('visibility','visible');
+                }
+            }
+        });
+    }
+
+    /*顶部的条件查询*/
+    function selectTop(){
+        createSelect();
+        let SysUser=new createSelect();
+        ajaxGetTable(page,SysUser);
+    }
+
+    /*清除输入框*/
+    function cleanInput(){
+        $("#SelectLoginName").val('');
+        $("#SelectPhoneNumber").val('');
+        $("#SelectStatus option:first").prop("selected", 'selected')
+    }
+
+    /*刷新当前页面*/
+    function RefreshPage() {
+        page=1;
+        createSelect();
+        let SysUser=new createSelect();
+
+        ajaxGetTable(page,SysUser);
+        $("#ztreeNodes").empty();
+        initZTree();
+    }
+
+    //******************************************************************************************************************
+    /*部门树*/
+    var setting = {
+        view: {
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            selectedMulti: false
+        },
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable:true,
+            },
+            edit: {
+                enable: true
+            },
+        },
+        callback:{
+            onClick : ChooseNode,
+        }
+    };
+
+
+    /*部门树点击事件*/
+    function ChooseNode(event,treeId,treeNode){
+        let SysUser=new createSelect();
+        SysUser.deptId=treeNode.id;
+        ajaxGetTable(page,SysUser);
+    }
+
+
+    /*部门初始化*/
+    function initZTree() {
+        $.ajax({
+            url : "/system/organization/AjaxgetAllMainCompany",
+            type : "get",
+            dataType : "json",
+            success : function(data) {
+                $.fn.zTree.init($("#ztreeNodes"), setting, data);
+            },
+            error : function() {
+
+            }
+        });
+    }
+
+
+    /*树的点击操作*/
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+        if (btn) btn.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            return false;
+        });
+    };
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+
+</script>
+
+
+
+<!--模态框的操作-->
+<script>
+    /*弹窗修改值*/
+    $('#GoUpdate').click(function() {
+        function User(){
+            this.userId = $('#userId').val();
+            this.delFlag = $('#delFlag').val();
+            this.deptId= $('#deptId').val();
+            this.loginName = $('#loginName').val();
+            this.userName = $('#userName').val();
+            this.userType = $('#userType').val();
+            this.phonenumber = $('#phonenumber').val();
+            this.sex = $('#sex').val();
+            this.password = $('#password').val();
+            this.createBy = $('#createBy').val();
+            this.remark = $('#remark').val();
+            this.email = $('#email').val();
+        }
+
+        var user = new User();
+        $.ajax({
+            type : "post",
+            url: "/system/sysuser/updateUser",
+            data: JSON.stringify(user),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+    })
+    /*修改值时，页面弹框获取后端的值*/
+    $('#exampleModal').on('show.bs.modal', function (event){
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        var modal = $(this);
+        $.ajax({
+            url: "/system/sysuser/goUserById/"+id,
+            type: "get",
+            dataType: "json",
+            success: function (date){
+                modal.find(' #userId' ).val(date.userId);
+                modal.find(' #delFlag' ).val(date.delFlag);
+                modal.find(' #deptId' ).val(date.deptId);
+                modal.find(' #loginName' ).val(date.loginName);
+                modal.find(' #userName' ).val(date.userName);
+                modal.find(' #userType' ).val(date.userType);
+                modal.find(' #phonenumber' ).val(date.phonenumber);
+                modal.find(' #sex' ).val(date.sex);
+                modal.find(' #password' ).val(date.password);
+                modal.find(' #createBy' ).val(date.createBy);
+                modal.find(' #remark' ).val(date.remark);
+                modal.find(' #email' ).val(date.email);
+            }
+        })
+    })
+
+
+
+
+   /*返回跳转*/
+    function backIndex(){
+        window.location.href="/system/sysuser/getAllUser"
+    }
+
+    $('#AddUser').on('show.bs.modal', function (event){
+
+    })
+    /*增加角色*/
+    $('#addByUser').click(function() {
+        function adduser(){
+            this.deptId= $('#adddeptId').val();
+            this.loginName = $('#addloginName').val();
+            this.userName = $('#adduserName').val();
+            this.userType = $('#adduserType').val();
+            this.phonenumber = $('#addphonenumber').val();
+            this.sex = $('#addsex').val();
+            this.password = $('#addpassword').val();
+            this.createBy = $('#addcreateBy').val();
+            this.remark = $('#addremark').val();
+            this.email = $('#addemail').val();
+        }
+
+        var adduser = new adduser();
+        $.ajax({
+            type : "post",
+            url: "/system/sysuser/addUser",
+            data: JSON.stringify(adduser),//必须
+            contentType : "application/json;charsetset=UTF-8",//必须
+            dataType:"json",//必须
+        });
+        window.location.replace("/system/sysuser/getAllUser");
+    })
+</script>
+
+
+
+
+</body>
+</html>
