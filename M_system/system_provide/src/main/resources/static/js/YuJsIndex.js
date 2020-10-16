@@ -86,7 +86,7 @@
         $("iframe").hide();//让所有iframe隐藏
         if(flagIframeClass===undefined) {//如果没有就创建
             let IframeHtml='';
-            IframeHtml+=" <iframe class=\'"+MenuId+"Iframe\' onload=\"this.height=this.contentWindow.document.documentElement.scrollHeight+500;\" style=\"overflow: auto; width: calc(100% + 10px);\" data-id=\'"+MenuUrl+"\' scrolling=\"no\" src=\'"+MenuUrl+"\' frameborder='0' seamless></iframe>" ;
+            IframeHtml+=" <iframe class=\'"+MenuId+"Iframe\' onload=\"this.height=this.contentWindow.document.documentElement.scrollHeight+600;\" style=\"overflow: auto; width: calc(100% + 10px);\" data-id=\'"+MenuUrl+"\' scrolling=\"no\" src=\'"+MenuUrl+"\' frameborder='0' seamless></iframe>" ;
             $(".MyIframe").append(IframeHtml);
             console.log(IframeHtml)
         }

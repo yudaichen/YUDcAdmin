@@ -17,17 +17,17 @@
                      <input type="text" id="SelectMenuPerms" placeholder="菜单权限字符串">
                 </div>
                 <div class="col-xs-3">
-                    <button class="btn btn-sm btn-success" onclick="selectMenuTop()">
+                    <button class="btn btn-white btn-info" onclick="selectMenuTop()">
                         <i class="fa fa-search">
                         </i>
                         &nbsp;搜索
                     </button>
-                    <button class="btn btn-sm btn-warning" onclick="cleanMenuInput()">
+                    <button class="btn btn-white btn-info" onclick="cleanMenuInput()">
                         <i class="fa fa-refresh">
                         </i>
                         &nbsp;重置
                     </button>
-                    <button class="btn btn-sm btn-warning" onclick="RefreshMenu()">
+                    <button class="btn btn-white btn-info" onclick="RefreshMenu()">
                         <i class="ace-icon fa fa-undo">
                         </i>
                         刷新
@@ -56,63 +56,120 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-xs-4">
                                         <label for="menuId" class="col-form-label">菜单ID:</label>
-                                        <textarea type="text" class="form-control" id="menuId" name="menuId" disabled="disabled"></textarea>
+                                        <input type="text" class="form-control" id="menuId" name="menuId" disabled="disabled"></input>
                                     </div>
-                                    <div class="form-group">
+
+                                    <div class="col-xs-4 col-md-offset-1">
                                         <label for="menuName" class="col-form-label">菜单名称:</label>
-                                        <textarea class="form-control" id="menuName" name="menuName"></textarea>
+                                        <input class="form-control" id="menuName" name="menuName"></input>
                                     </div>
-                                    <div class="form-group">
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4">
                                         <label for="parentId" class="col-form-label">父菜单ID:</label>
-                                        <textarea class="form-control" name="parentId" id="parentId" disabled="disabled"></textarea>
+                                        <input class="form-control" name="parentId" id="parentId" disabled="disabled"></input>
                                     </div>
-                                    <div class="form-group">
+
+                                    <div class="col-xs-4 col-md-offset-1">
                                         <label for="orderNum" class="col-form-label">显示顺序:</label>
-                                        <textarea class="loginName" id="orderNum" name="orderNum" ></textarea>
+                                        <input class="form-control" id="orderNum" name="orderNum" ></input>
                                     </div>
-                                    <div class="form-group">
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4">
                                         <label for="url" class="col-form-label">请求地址:</label>
                                         <textarea class="form-control" id="url" name="url" ></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="target" class="col-form-label">打开方式:</label>
-                                        <textarea class="form-control" id="target" name="target" placeholder="打开方式（menuItem页签 menuBlank新窗口）"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="menuType" class="col-form-label">菜单类型:</label>
-                                        <textarea class="form-control" id="menuType" name="menuType" placeholder="菜单类型（M目录 C菜单 F按钮）"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="visible" class="col-form-label">菜单状态:</label>
-                                        <textarea class="form-control" id="visible" name="visible" placeholder="菜单状态（0显示 1隐藏）"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="perms" class="col-form-label">权限标识:</label>
-                                        <textarea class="form-control" id="perms" name="perms"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="icon" class="col-form-label">菜单图标:</label>
-                                        <textarea class="form-control" id="icon" name="icon" placeholder="字符串"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="createBy" class="col-form-label">创建者:</label>
-                                        <textarea class="form-control" id="createBy" name="createBy"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="updateBy" class="col-form-label">更新者:</label>
-                                        <textarea class="form-control" id="updateBy" name="updateBy"></textarea>
-                                    </div>
-                                    <div class="form-group">
+                                    <div class="col-xs-4 col-md-offset-1">
                                         <label for="remark" class="col-form-label">备注:</label>
                                         <textarea class="form-control" id="remark" name="remark"></textarea>
                                     </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-xs-4">
+                                        <label for="perms" class="col-form-label">权限标识:</label>
+                                        <input class="form-control" id="perms" name="perms"></input>
+                                    </div>
+
+                                    <div class="col-xs-4 col-md-offset-1">
+                                        <label for="icon" class="col-form-label">菜单图标:</label>
+                                        <input class="form-control" id="icon" name="icon" placeholder="字符串"></input>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4">
+                                        <label for="createBy" class="col-form-label">创建者:</label>
+                                        <input class="form-control" id="createBy" name="createBy"></input>
+                                    </div>
+
+                                    <div class="col-xs-4 col-md-offset-1">
+                                        <label for="updateBy" class="col-form-label">更新者:</label>
+                                        <input class="form-control" id="updateBy" name="updateBy"></input>
+                                    </div>
+
+                                </div>
+
+
+                                </tr>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label class="col-form-label">菜单类型:</label>
+                                        <!--                                        <input class="form-control" id="menuType" name="menuType" placeholder="菜单类型（M目录 C菜单 F按钮）"></input>-->
+                                        <label class="radio-inline">
+                                            <input type="radio" value="M" name="menuType">目录
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="C" name="menuType">菜单
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="F" name="menuType">按钮
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label class="col-form-label">菜单状态:</label>
+                                        <!--                                        <input class="form-control" id="visible" name="visible" placeholder="菜单状态（0显示 1隐藏）"></input>-->
+                                        <label class="radio-inline">
+                                            <input type="radio" value="menuItem" name="UpdateTarget">页签
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="menuBlank" name="UpdateTarget">新窗口
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label class="col-form-label">菜单状态:</label>
+                                        <!--                                        <input class="form-control" id="visible" name="visible" placeholder="菜单状态（0显示 1隐藏）"></input>-->
+                                        <label class="radio-inline">
+                                            <input type="radio" value="0" name="visible">显示
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="1" name="visible">隐藏
+                                        </label>
+                                    </div>
+                                </div>
+
                                 </form>
                                 <div class="modal-footer">
 
-                                    <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                                    <button type="button" class="btn btn-white btn-info" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
                                     <button type="button" id="GoUpdate"  class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
                                     </i>提交</button>
 
@@ -121,7 +178,7 @@
                         </div>
                     </div>
                 </div>
-                </tr>
+
                 <!--模态框修改弹窗结束-->
 
 
@@ -137,65 +194,135 @@
                             </div>
                             <div class="modal-body">
                                 <form>
-                                    <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-xs-4">
                                         <label for="addroleId" class="col-form-label">角色ID:</label>
-                                        <textarea type="text" class="form-control" id="addroleId" name="addroleId" onkeyup="value=value.replace(/[^\d|^\n\r]/g,'');"></textarea>
-                                    </div>
-                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="addroleId" name="addroleId" onkeyup="value=value.replace(/[^\d|^\n\r]/g,'');"></input>
+                                        </div>
+
+                                        <div class="col-xs-4 col-md-offset-1">
                                         <label for="menuId" class="col-form-label">菜单ID:</label>
-                                        <textarea type="text" class="form-control" id="addmenuId" name="addmenuId" onkeyup="value=value.replace(/[^\d|^\n\r]/g,'');"></textarea>
+                                        <input type="text" class="form-control" id="addmenuId" name="addmenuId" onkeyup="value=value.replace(/[^\d|^\n\r]/g,'');"></input>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group">
+
+                                    <div class="row">
+
+                                        <div class="col-xs-4">
                                         <label for="menuName" class="col-form-label">菜单名称:</label>
-                                        <textarea class="form-control" id="addmenuName" name="addmenuName"></textarea>
-                                    </div>
-                                    <div class="form-group">
+                                        <input class="form-control" id="addmenuName" name="addmenuName"></input>
+                                        </div>
+
+                                        <div class="col-xs-4 col-md-offset-1">
                                         <label for="parentId" class="col-form-label">父菜单ID:</label>
-                                        <textarea class="form-control" name="addparentId" id="addparentId" onkeyup="value=value.replace(/[^\d|^\n\r]/g,'');"></textarea>
+                                        <input class="form-control" name="addparentId" id="addparentId" onkeyup="value=value.replace(/[^\d|^\n\r]/g,'');"></input>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-xs-4">
                                         <label for="orderNum" class="col-form-label">显示顺序:</label>
-                                        <textarea class="loginName" id="addorderNum" name="addorderNum"></textarea>
-                                    </div>
-                                    <div class="form-group">
+                                        <input class="form-control" id="addorderNum" name="addorderNum"></input>
+                                        </div>
+
+                                        <div class="col-xs-4 col-md-offset-1">
                                         <label for="url" class="col-form-label">请求地址:</label>
-                                        <textarea class="form-control" id="addurl" name="addurl"></textarea>
+                                        <input class="form-control" id="addurl" name="addurl"></input>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group">
-                                        <label for="target" class="col-form-label">打开方式:</label>
-                                        <textarea class="form-control" id="addtarget" name="addtarget" placeholder="打开方式（menuItem页签 menuBlank新窗口）"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="menuType" class="col-form-label">菜单类型:</label>
-                                        <textarea class="form-control" id="addmenuType" name="addmenuType" placeholder="菜单类型（M目录 C菜单 F按钮）"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="visible" class="col-form-label">菜单状态:</label>
-                                        <textarea class="form-control" id="addvisible" name="addvisible" placeholder="菜单状态（0显示 1隐藏）"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="perms" class="col-form-label">权限标识:</label>
-                                        <textarea class="form-control" id="addperms" name="addperms"></textarea>
-                                    </div>
-                                    <div class="form-group">
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-xs-4">
                                         <label for="icon" class="col-form-label">菜单图标:</label>
-                                        <textarea class="form-control" id="addicon" name="addicon" placeholder="字符串"></textarea>
-                                    </div>
-                                    <div class="form-group">
+                                        <input class="form-control" id="addicon" name="addicon" placeholder="字符串"></input>
+                                        </div>
+
+                                        <div class="col-xs-4 col-md-offset-1">
                                         <label for="createBy" class="col-form-label">创建者:</label>
-                                        <textarea class="form-control" id="addcreateBy" name="addcreateBy"></textarea>
+                                        <input class="form-control" id="addcreateBy" name="addcreateBy"></input>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group">
+
+                                    <div class="row">
+
+                                        <div class="col-xs-4">
                                         <label for="updateBy" class="col-form-label">更新者:</label>
-                                        <textarea class="form-control" id="addupdateBy" name="addupdateBy"></textarea>
-                                    </div>
-                                    <div class="form-group">
+                                        <input class="form-control" id="addupdateBy" name="addupdateBy"></input>
+                                        </div>
+
+                                        <div class="col-xs-4 col-md-offset-1">
                                         <label for="remark" class="col-form-label">备注:</label>
-                                        <textarea class="form-control" id="addremark" name="addremark"></textarea>
+                                        <input class="form-control" id="addremark" name="addremark"></input>
+                                        </div>
+
                                     </div>
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+                                            <label for="perms" class="col-form-label">权限标识:</label>
+                                            <input class="form-control" id="addperms" name="addperms"></input>
+                                        </div>
+
+                                    </div>
+                                </br>
+
+
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+
+                                            <!--                                        <input class="form-control" id="addtarget" name="addtarget" placeholder="打开方式（menuItem页签 menuBlank新窗口）"></input>-->
+                                            <label>打开方式:</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" value="menuItem" name="addtarget">页签
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" value="menuBlank" name="addtarget">新窗口
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <label class="col-form-label">菜单类型:</label>
+                                            <!--                                        <input class="form-control" id="addmenuType" name="addmenuType" placeholder="菜单类型（M目录 C菜单 F按钮）"></input>-->
+
+                                            <label class="radio-inline">
+                                                <input type="radio" value="M" name="addmenuType">目录
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" value="C" name="addmenuType">菜单
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" value="F" name="addmenuType">按钮
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+                                            <label class="col-form-label">菜单状态:</label>
+                                            <!--                                        <input class="form-control" id="addvisible" name="addvisible" placeholder="菜单状态（0显示 1隐藏）"></input>-->
+                                            <label class="radio-inline">
+                                                <input type="radio" value="0" name="addvisible">显示
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" value="1" name="addvisible">隐藏
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </form>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                                    <button type="button" class="btn btn-white btn-info" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
                                     <button type="button" id="GoToAddMenu" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
                                     </i>提交</button>
                                 </div>
@@ -316,19 +443,19 @@
                 align: "center",
                     formatter: function(value, row, index) {
                         return "                                                <div class=\"menu-group-add\" style=\"display: inline-block;visibility: hidden;\">\n" +
-                            "                                                    <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#addmenusexampleModal\" data-whatever=\"@fat\">\n" +
+                            "                                                    <button class=\"btn btn-white btn-info\" data-toggle=\"modal\" data-target=\"#addmenusexampleModal\" data-whatever=\"@fat\">\n" +
                             "                                                      <i class='glyphicon glyphicon-transfer'></i>  添加菜单 \n" +
                             "                                                    </button>\n" +
                             "                                                </div>\n" +
                             "\n" +
                             "                                                <div class=\"menu-group-update\" style=\"display: inline-block;visibility: hidden;\">\n" +
-                            "                                                    <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#menusexampleModal\" data-whatever=\""+row.menuId+"\">\n" +
+                            "                                                    <button class=\"btn btn-white btn-info\" data-toggle=\"modal\" data-target=\"#menusexampleModal\" data-whatever=\""+row.menuId+"\">\n" +
                             "                                                      <i class=\"glyphicon glyphicon-pencil\"></i>    修改菜单\n" +
                             "                                                    </button>\n" +
                             "                                                </div>\n"+
                             "     <div class=\"menu-group-remove\" style=\"display: inline-block;visibility: hidden;\">\n" +
                             "                                                    <a th:href=\"@{'/system/sysmenu/removeByd/'+"+row.menuId+"}\">\n" +
-                            "                                                        <button class=\"btn btn-xs btn-danger\">\n" +
+                            "                                                        <button class=\"btn btn-white btn-info\">\n" +
                             "                                                            <i class=\"ace-icon fa fa-trash-o bigger-120\">删除菜单</i>\n" +
                             "                                                        </button>\n" +
                             "                                                    </a>\n" +
@@ -499,14 +626,20 @@
                 type: "get",
                 dataType: "json",
                 success: function (date){
+                    console.log(date)
                     modal.find(' #menuId' ).val(date.menuId);
                     modal.find(' #menuName' ).val(date.menuName);
                     modal.find(' #parentId' ).val(date.parentId);
                     modal.find(' #orderNum' ).val(date.orderNum);
                     modal.find(' #url' ).val(date.url);
-                    modal.find(' #target' ).val(date.target);
-                    modal.find(' #menuType' ).val(date.menuType);
-                    modal.find(' #visible' ).val(date.visible);
+                    // modal.find(' #target' ).val(date.target);
+                    $("input[name=\"UpdateTarget\"][value="+date.target+"]").attr("checked","checked");
+
+                    // modal.find(' #menuType' ).val(date.menuType);
+                    $("input[name=\"menuType\"][value="+date.menuType+"]").attr("checked","checked");
+                    // modal.find(' #visible' ).val(date.visible);
+                    $("input[name=\"visible\"][value="+date.visible+"]").attr("checked","checked");
+
                     modal.find(' #perms' ).val(date.perms);
                     modal.find(' #icon' ).val(date.icon);
                     modal.find(' #createBy' ).val(date.createBy);
@@ -525,9 +658,12 @@
                 this.parentId= $('#parentId').val();
                 this.orderNum = $('#orderNum').val();
                 this.url = $('#url').val();
-                this.target = $('#target').val();
-                this.menuType = $('#menuType').val();
-                this.visible = $('#visible').val();
+                // this.target = $('#target').val();
+                this.target = $('input[name="UpdateTarget"]:checked').val().toString();
+                // this.menuType = $('#menuType').val();
+                this.target = $('input[name="menuType"]:checked').val().toString();
+                // this.visible = $('#visible').val();
+                this.target = $('input[name="visible"]:checked').val().toString();
                 this.perms = $('#perms').val();
                 this.icon = $('#icon').val();
                 this.createBy = $('#createBy').val();
@@ -544,7 +680,7 @@
                 contentType : "application/json;charsetset=UTF-8",//必须
                 dataType:"json",//必须
             });
-            location.reload();
+            $("#menusexampleModal").modal("hide");
         })
 
         /*打开增加菜单按钮*/
@@ -563,9 +699,12 @@
                 this.parentId = $('#addparentId').val();
                 this.orderNum = $('#addorderNum').val();
                 this.url = $('#addurl').val();
-                this.target = $('#addtarget').val();
-                this.menuType = $('#addmenuType').val();
-                this.visible = $('#addvisible').val();
+                // this.target = $('#addtarget').val();
+                this.target = $('input[name="addtarget"]:checked').val().toString();
+                // this.menuType = $('#addmenuType').val();
+                this.target =$('input[name="addmenuType"]:checked').val().toString();
+                // this.visible = $('#addvisible').val();
+                this.target =$('input[name="addvisible"]:checked').val().toString();
                 this.perms = $('#addperms').val();
                 this.icon = $('#addicon').val();
                 this.createBy = $('#addcreateBy').val();
@@ -581,7 +720,7 @@
                 contentType : "application/json;charsetset=UTF-8",//必须
                 dataType:"json",//必须
             });
-            location.reload();
+            $("#addmenusexampleModal").modal("hide");
         })
     </script>
 </body>

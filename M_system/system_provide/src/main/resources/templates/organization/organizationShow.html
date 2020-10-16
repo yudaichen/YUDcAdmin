@@ -18,17 +18,17 @@
                 <input type="text" id="SelectOrganizationOAddress" placeholder="部门地址:">
             </div>
             <div class="col-xs-6">
-                <button class="btn btn-sm btn-success" onclick="SelectTopOrganization()">
+                <button class="btn btn-white btn-info" onclick="SelectTopOrganization()">
                     <i class="fa fa-search">
                     </i>
                     &nbsp;搜索
                 </button>
-                <button class="btn btn-sm btn-warning" onclick="cleanOrganizationButton()">
+                <button class="btn btn-white btn-info" onclick="cleanOrganizationButton()">
                     <i class="ace-icon fa fa-undo">
                     </i>
                     &nbsp;重置
                 </button>
-                <button class="btn btn-sm btn-default" onclick="RefreshOrganization()">
+                <button class="btn btn-white btn-info" onclick="RefreshOrganization()">
                     <i class="fa fa-refresh">
                     </i>
                     刷新
@@ -57,39 +57,54 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="addcode" class="col-form-label">部门编号:</label>
-                            <textarea class="form-control" id="addcode" name="code"></textarea>
+                <form>
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <label for="addpId" class="col-form-label">上级部门Id:</label>
+                            <input class="form-control" id="addpId" name="addpId"></input>
                         </div>
-                        <div class="form-group">
+                    </div>
+                    <div class="row">
+
+                        <div class="col-xs-4">
                             <label for="addaddress" class="col-form-label">部门地址:</label>
-                            <textarea class="form-control" name="addaddress" id="addaddress"></textarea>
+                            <input class="form-control" name="addaddress" id="addaddress"></input>
+
                         </div>
-                        <div class="form-group">
+
+                        <div class="col-xs-4 col-md-offset-1">
                             <label for="addname" class="col-form-label">部门名字:</label>
-                            <textarea class="form-control" id="addname" name="addname"></textarea>
+                            <input class="form-control" id="addname" name="addname"></input>
                         </div>
-                        <div class="form-group">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
                             <label for="addcontact" class="col-form-label">部门联系人或负责人:</label>
-                            <textarea class="form-control" id="addcontact" name="addcontact"></textarea>
-                        </div>
-                        <div class="form-group">
+                            <input class="form-control" id="addcontact" name="addcontact"></input>
+                         </div>
+
+                        <div class="col-xs-4 col-md-offset-1">
                             <label for="addphone" class="col-form-label">联系电话:</label>
-                            <textarea class="loginName" id="addphone" name="addphone" ></textarea>
+                            <input class="form-control" id="addphone" name="addphone" ></input>
                         </div>
-                        <div class="form-group">
-                            <label for="addpid" class="col-form-label">上级部门:</label>
-                            <textarea class="form-control" id="addpid" name="addpid"></textarea>
-                        </div>
-                        <div class="form-group">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
                             <label for="addseq" class="col-form-label">排序:</label>
-                            <textarea class="form-control" id="addseq" name="addseq"></textarea>
+                            <input class="form-control" id="addseq" name="addseq"></input>
                         </div>
+                        <div class="col-xs-4 col-md-offset-1">
+                        <label for="addcode" class="col-form-label">部门编号:</label>
+                        <input class="form-control" id="addcode" name="code"></input>
+                        </div>
+                    </div>
                     </form>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                        <button type="button" class="btn btn-white btn-info" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
                         <button type="button" id="GoToAdd" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
                         </i>提交</button>
                     </div>
@@ -112,42 +127,63 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-xs-4">
                             <label for="id" class="col-form-label">组织ID:</label>
-                            <textarea type="text" class="form-control" id="id" name="id" disabled="disabled"></textarea>
-                        </div>
-                        <div class="form-group">
+                            <input type="text" class="form-control" id="id" name="id" disabled="disabled"></input>
+                            </div>
+
+                            <div class="col-xs-4 col-md-offset-1">
                             <label for="code" class="col-form-label">部门编号:</label>
-                            <textarea class="form-control" id="code" disabled="code"></textarea>
+                            <input class="form-control" id="code" disabled="code"></input>
+                            </div>
+
                         </div>
-                        <div class="form-group">
+
+                        <div class="row">
+
+                            <div class="col-xs-4">
                             <label for="name" class="col-form-label">部门名字:</label>
-                            <textarea class="form-control" id="name" name="name"></textarea>
-                        </div>
-                        <div class="form-group">
+                            <input class="form-control" id="name" name="name"></input>
+                            </div>
+
+                            <div class="col-xs-4 col-md-offset-1">
                             <label for="address" class="col-form-label">部门地址:</label>
-                            <textarea class="form-control" name="address" id="address"></textarea>
+                            <input class="form-control" name="address" id="address"></input>
+                            </div>
+
                         </div>
-                        <div class="form-group">
+
+                        <div class="row">
+
+                            <div class="col-xs-4">
                             <label for="contact" class="col-form-label">部门联系人或负责人:</label>
-                            <textarea class="form-control" id="contact" name="contact"></textarea>
-                        </div>
-                        <div class="form-group">
+                            <input class="form-control" id="contact" name="contact"></input>
+                            </div>
+
+                            <div class="col-xs-4 col-md-offset-1">
                             <label for="phone" class="col-form-label">联系电话:</label>
-                            <textarea class="loginName" id="phone" name="phone" ></textarea>
+                            <input class="form-control" id="phone" name="phone" ></input>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label for="pid" class="col-form-label">上级部门:</label>
-                            <textarea class="form-control" id="pid" name="pid"></textarea>
-                        </div>
-                        <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-xs-4">
+                            <label for="pId" class="col-form-label">上级部门:</label>
+                            <input class="form-control" id="pId" name="pId"></input>
+                            </div>
+
+                            <div class="col-xs-4 col-md-offset-1">
+
                             <label for="seq" class="col-form-label">排序:</label>
-                            <textarea class="form-control" id="seq" name="seq"></textarea>
+                            <input class="form-control" id="seq" name="seq"></input>
+                            </div>
+
                         </div>
                     </form>
                     <div class="modal-footer">
-
-                        <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
                         <button type="button" id="GoUpdate" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
                         </i>提交</button>
                     </div>
@@ -235,18 +271,18 @@ $(document).ready(function () {
                 align: 'center',
                 formatter: function (value, row, index) {
                     return "    <span class=\"org-group-add\" style=\"visibility: hidden;\">\n" +
-                        "        <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#addexampleModal\" data-whatever=\"@fat\">\n" +
+                        "        <button class=\"btn btn-white btn-info\" data-toggle=\"modal\" data-target=\"#addexampleModal\" data-whatever=\""+row.id+"\">\n" +
                         "           <i class='glyphicon glyphicon-transfer'></i> 增加部门\n" +
                         "        </button>\n" +
                         "    </span>" +
                         "    <span class=\"org-group-update\" style=\"visibility: hidden;\">\n" +
-                        "        <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#showexampleModal\" data-whatever=\""+row.id+"\">\n" +
+                        "        <button class=\"btn btn-white btn-info\" data-toggle=\"modal\" data-target=\"#showexampleModal\" data-whatever=\""+row.id+"\">\n" +
                         "         <i class=\"glyphicon glyphicon-pencil\"></i>   修改部门\n" +
                         "        </button>\n" +
                         "    </span>" +
                         "  <span class=\"group-remove\" style=\"visibility: hidden;\">\n" +
                         " <a href=\"/system/organization/deleteMainCompany/"+row.roleId+"\">\n" +
-                        "<button class=\"btn btn-xs btn-danger\">\n" +
+                        "<button class=\"btn btn-white btn-info\">\n" +
                         "<i class=\"ace-icon fa fa-trash-o bigger-120\">删除部门</i>\n" +
                         "                                </button>\n" +
                         "                            </a>\n" +
@@ -366,22 +402,22 @@ $(document).ready(function () {
  * @param datas 所有的数据
  * @param row 当前数据
  * @param id id 字段名
- * @param pid 父id字段名
+ * @param pId 父id字段名
  */
-function selectChilds(datas,row,id,pid,checked) {
+function selectChilds(datas,row,id,pId,checked) {
     for(var i in datas){
-        if(datas[i][pid] == row[id]){
+        if(datas[i][pId] == row[id]){
             datas[i].check=checked;
-            selectChilds(datas,datas[i],id,pid,checked);
+            selectChilds(datas,datas[i],id,pId,checked);
         };
     }
 }
 
-function selectParentChecked(datas,row,id,pid){
+function selectParentChecked(datas,row,id,pId){
     for(var i in datas){
         if(datas[i][id] == row[pid]){
             datas[i].check=true;
-            selectParentChecked(datas,datas[i],id,pid);
+            selectParentChecked(datas,datas[i],id,pId);
         };
     }
 }
@@ -424,12 +460,11 @@ function update(id) {
             this.code= $('#code').val();
             this.contact = $('#contact').val();
             this.phone = $('#phone').val();
-            this.pid = $('#pid').val();
+            this.pId = $('#pId').val();
             this.seq = $('#seq').val();
             this.name = $('#name').val();
         }
         var Organization = new Organization();
-        console.log(JSON.stringify(Organization));
         $.ajax({
             type : "post",
             url: "/system/organization/updateOrganization",
@@ -437,6 +472,7 @@ function update(id) {
             contentType : "application/json;charsetset=UTF-8",//必须
             dataType:"json",//必须
         });
+        $("#showexampleModal").modal("hide");
     })
 </script>
 
@@ -457,7 +493,7 @@ function update(id) {
                 modal.find(' #code' ).val(date.code);
                 modal.find(' #contact' ).val(date.contact);
                 modal.find(' #phone' ).val(date.phone);
-                modal.find(' #pid' ).val(date.pid);
+                modal.find(' #pId' ).val(date.pId);
                 modal.find(' #seq' ).val(date.seq);
                 modal.find(' #name' ).val(date.name);
             }
@@ -477,7 +513,7 @@ function update(id) {
             this.code = $('#addcode').val();
             this.contact = $('#addcontact').val();
             this.phone = $('#addphone').val();
-            this.pid = $('#addpid').val();
+            this.pId = $('#addpId').val();
             this.seq = $('#addseq').val();
             this.name = $('#addname').val();
 
@@ -492,7 +528,9 @@ function update(id) {
             contentType : "application/json;charsetset=UTF-8",//必须
             dataType:"json",//必须
         });
-        window.location.replace("/system/organization/getAllMainCompany");
+
+        $("#addexampleModal").modal("hide");
+        // window.location.replace("/system/organization/getAllMainCompany");
     })
 
 </script>
@@ -503,6 +541,7 @@ function update(id) {
         var button = $(event.relatedTarget);
         var id = button.data('whatever');
         var modal = $(this);
+        modal.find(' #addpId' ).val(id);
     })
 </script>
 

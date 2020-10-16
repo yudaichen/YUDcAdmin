@@ -24,22 +24,22 @@
                 </select>
             </div>
             <div class="col-xs-5">
-                <button class="btn btn-sm btn-success"  onclick="selectRoleTop()">
+                <button class="btn btn-white btn-info"  onclick="selectRoleTop()">
                     <i class="fa fa-search">
                     </i>
                     &nbsp;搜索
                 </button>
-                <button class="btn btn-sm btn-warning" onclick="cleanRoleButton()">
+                <button class="btn btn-white btn-info" onclick="cleanRoleButton()">
                     <i class="ace-icon fa fa-undo">
                     </i>
                     &nbsp;重置
                 </button>
-                <button class="btn btn-sm btn-default" onclick="RefreshRolePage()">
+                <button class="btn btn-white btn-info" onclick="RefreshRolePage()">
                     <i class="fa fa-refresh">
                     </i>
                     刷新
                 </button>
-                <button id ="addRoleButton" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addexampleModal" data-whatever="@fat" style="visibility: hidden;">
+                <button id ="addRoleButton" class="btn btn-white btn-info" data-toggle="modal" data-target="#addexampleModal" data-whatever="@fat" style="visibility: hidden;">
                     <i class="glyphicon glyphicon-export">
                     </i>
                 增加角色
@@ -88,8 +88,8 @@
 
                         </form>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
-                            <button type="button" id="removeByBinding" class="btn btn-white" value="submit"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i>解除绑定</button>
+                            <button type="button" class="btn btn-white btn-info" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                            <button type="button" id="removeByBinding" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i>解除绑定</button>
                             <button type="button" id="GoToaddBinding" class="btn btn-white btn-info" value="submit">  <i class="ace-icon fa fa-check">
                             </i>提交</button>
                         </div>
@@ -110,46 +110,89 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
+                        <br>
+                            <div class="row">
+
+                                <div class="col-xs-4">
                                 <label for="roleId" class="col-form-label">角色ID:</label>
-                                <textarea type="text" class="form-control" id="roleId" name="roleId" disabled="disabled"></textarea>
-                            </div>
-                            <div class="form-group">
+                                <input type="text" class="form-control" id="roleId" name="roleId" disabled="disabled"></input>
+                                </div>
+
+                                <div class="col-xs-4 col-md-offset-1">
+
                                 <label for="roleName" class="col-form-label">角色名称:</label>
-                                <textarea class="form-control" id="roleName" disabled="roleName"></textarea>
+                                <input class="form-control" id="roleName" disabled="roleName"></input>
+                                </div>
+
                             </div>
-                            <div class="form-group">
+
+                            <div class="row">
+
+                                <div class="col-xs-4">
                                 <label for="roleSort" class="col-form-label">显示顺序:</label>
-                                <textarea class="form-control" name="roleSort" id="roleSort"></textarea>
-                            </div>
-                            <div class="form-group">
+                                <input class="form-control" name="roleSort" id="roleSort"></input>
+                                </div>
+
+                                <div class="col-xs-4 col-md-offset-1">
                                 <label for="roleKey" class="col-form-label">角色权限:</label>
-                                <textarea class="form-control" id="roleKey" name="roleKey"></textarea>
+                                <input class="form-control" id="roleKey" name="roleKey"></input>
+                                </div>
+
                             </div>
-                            <div class="form-group">
-                                <label for="dataScope" class="col-form-label">数据范围:</label>
-                                <textarea class="loginName" id="dataScope" name="dataScope" ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="status" class="col-form-label">角色状态:</label>
-                                <textarea class="form-control" id="status" name="status"></textarea>
-                            </div>
-                            <div class="form-group">
+
+                            <div class="row">
+
+                                <div class="col-xs-4">
                                 <label for="createBy" class="col-form-label">创建者:</label>
-                                <textarea class="form-control" id="createBy" name="createBy"></textarea>
-                            </div>
-                            <div class="form-group">
+                                <input class="form-control" id="createBy" name="createBy"></input>
+                                </div>
+
+                                <div class="col-xs-4 col-md-offset-1">
                                 <label for="updateBy" class="col-form-label">更新者:</label>
-                                <textarea class="form-control" id="updateBy" name="updateBy"></textarea>
+                                <input class="form-control" id="updateBy" name="updateBy"></input>
+                                </div>
+
                             </div>
-                            <div class="form-group">
+                        </br>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-form-label">角色状态:</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="0" name="status">正常
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="status">停用
+                                </label>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label class="col-form-label">数据范围:</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" name="dataScope">全部数据权限
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="2" name="dataScope">自定数据权限
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="3" name="dataScope">本部门数据
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="4" name="dataScope">本部门及以下
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-xs-12">
                                 <label for="remark" class="col-form-label">备注:</label>
                                 <textarea class="form-control" id="remark" name="remark"></textarea>
+                                </div>
                             </div>
                         </form>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
+                            <button type="button" class="btn btn-white btn-info" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
                             <button type="button" id="GoUpdate" class="btn btn-white btn-info" value="submit"><i class="ace-icon fa fa-check">
                             </i>提交</button>
                         </div>
@@ -171,38 +214,71 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group">
-                                <label for="addroleName" class="col-form-label">角色名称:</label>
-                                <textarea class="form-control" id="addroleName" name="roleName"></textarea>
+                            <div class="row">
+
+                                <div class="col-xs-4">
+                                        <label for="addroleName" class="col-form-label">角色名称:</label>
+                                        <input class="form-control" id="addroleName" name="roleName"></input>
+                                </div>
+
+                                <div class="col-xs-4 col-md-offset-1">
+                                        <label for="addroleSort" class="col-form-label">显示顺序:</label>
+                                        <input class="form-control" name="addroleSort" id="addroleSort"></input>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-xs-4">
+                                        <label for="addroleKey" class="col-form-label">角色权限字符串:</label>
+                                        <input class="form-control" id="addroleKey" name="addroleKey"></input>
+                                </div>
+
+                                <div class="col-xs-4 col-md-offset-1">
+                                        <label for="addcreateBy" class="col-form-label">创建者:</label>
+                                        <input class="form-control" id="addcreateBy" name="addcreateBy"></input>
+                                    </div>
                             </div>
                             <div class="form-group">
-                                <label for="addroleSort" class="col-form-label">显示顺序:</label>
-                                <textarea class="form-control" name="addroleSort" id="addroleSort"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="adddataScope" class="col-form-label">数据范围:</label>
-                                <textarea class="loginName" id="adddataScope" name="adddataScope" ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="addstatus" class="col-form-label">角色状态:</label>
-                                <textarea class="form-control" id="addstatus" name="addstatus"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="addroleKey" class="col-form-label">角色权限:</label>
-                                <textarea class="form-control" id="addroleKey" name="addroleKey"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="addcreateBy" class="col-form-label">创建者:</label>
-                                <textarea class="form-control" id="addcreateBy" name="addcreateBy"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="addupdateBy" class="col-form-label">更新者:</label>
-                                <textarea class="form-control" id="addupdateBy" name="addupdateBy"></textarea>
-                            </div>
-                            <div class="form-group">
+
                                 <label for="addremark" class="col-form-label">备注:</label>
                                 <textarea class="form-control" id="addremark" name="addremark"></textarea>
                             </div>
+
+                        </br>
+                            <div class="row">
+
+                                <div class="col-xs-4">
+                                    <label class="radio-inline">数据范围:</label>
+                                    <!--                                        <textarea class="loginName" id="adddataScope" name="adddataScope" ></textarea>-->
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" name="adddataScope">全部数据权限
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="2" name="adddataScope">自定数据权限
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="3" name="adddataScope">本部门数据
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="4" name="adddataScope">本部门及以下
+                                    </label>
+                                </div>
+
+                                <div class="col-xs-4 col-md-offset-1">
+                                    <label class="col-form-label">角色状态:</label>
+                                    <!--                                    <textarea class="form-control" id="addstatus" name="addstatus"></textarea>-->
+                                    <label class="radio-inline">
+                                        <input type="radio" value="0" name="addstatus">正常
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" name="addstatus">停用
+                                    </label>
+                                </div>
+                            </div>
+
+
                         </form>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white btn-warning" data-dismiss="modal" onclick="backIndex()"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
@@ -313,20 +389,20 @@
                 formatter: function (value, row, index) {
                     return "  <span class=\"group-remove\" style=\"visibility: hidden;\">\n" +
                         "                            <a href=\"/system/sysrole/removeRoleById/"+row.roleId+"\">\n" +
-                        "                                <button class=\"btn btn-xs btn-danger\">\n" +
+                        "                                <button class=\"btn btn-white btn-info\">\n" +
                         "                                    <i class=\"ace-icon fa fa-trash-o bigger-120\">删除角色</i>\n" +
                         "                                </button>\n" +
                         "                            </a>\n" +
                         "                        </span>\n" +
                         "                        <span class=\"group-update\" style=\"visibility: hidden;\">\n" +
-                        "                            <button class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#showexampleModal\" data-whatever=\""+row.roleId+"\">\n" +
+                        "                            <button class=\"btn btn-white btn-info\" data-toggle=\"modal\" data-target=\"#showexampleModal\" data-whatever=\""+row.roleId+"\">\n" +
                         "                                <i class=\"glyphicon glyphicon-pencil\">修改角色</i>\n" +
                         "                            </button>\n" +
                         "                        </span>\n" +
                         "\n" +
                         "                        <span class=\"group-bindingUser\" style=\"visibility: hidden;\">\n" +
                         "\n" +
-                        "                            <button class=\"btn btn-xs btn-green\" data-toggle=\"modal\" data-target=\"#addBinding\" data-whatever=\""+row.roleId+"\">\n" +
+                        "                            <button class=\"btn btn-white btn-info\" data-toggle=\"modal\" data-target=\"#addBinding\" data-whatever=\""+row.roleId+"\">\n" +
                         "                                <i class='glyphicon glyphicon-transfer'></i>设置角色\n" +
                         "                            </button>\n" +
                         "                        </span>";
@@ -367,11 +443,11 @@
             let htmlPageButton="";
             htmlPageButton += " <div class=\"col-xs-5\">";
             if (total !== 1&&page>0) {
-                htmlPageButton += "<button type=\"button\" class=\"btn btn-success\" onclick='lastRolePage()'>上一页</button>";
+                htmlPageButton += "<button type=\"button\" class=\"btn btn-white btn-info\" onclick='lastRolePage()'>上一页</button>";
 
             }
             if (total !== page) {
-                htmlPageButton += "<button type=\"button\" class=\"btn btn-success\" onclick=\"nextRolePage("+total+")\">下一页</button>";
+                htmlPageButton += "<button type=\"button\" class=\"btn btn-white btn-info\" onclick=\"nextRolePage("+total+")\">下一页</button>";
             }
             htmlPageButton += "</div>";
             htmlPageButton += "<div class=\"col-xs-3\">" +
@@ -381,7 +457,7 @@
             for (let i = 0; i < total; i++) {
                 htmlPageButton += "<option value=\"" + (i+1) + "\">第" + (i+1) + "页</option>";
             }
-            htmlPageButton += "</select><button type=\"button\" class=\"btn btn-white btn-inverse btn-sm\" onclick=\"selectRoleButton()\"><i class=\"glyphicon glyphicon-forward\"></i></button></div>";
+            htmlPageButton += "</select><button type=\"button\" class=\"btn btn-white btn-info btn-sm\" onclick=\"selectRoleButton()\"><i class=\"glyphicon glyphicon-forward\"></i></button></div>";
             $(".PageButton").append(htmlPageButton);
         }
     }
@@ -460,8 +536,10 @@
             this.roleKey = $('#roleKey').val();
             this.roleName = $('#roleName').val();
             this.roleSort= $('#roleSort').val();
-            this.dataScope = $('#dataScope').val();
-            this.status = $('#status').val();
+            // this.dataScope = $('#adddataScope').val();
+            this.dataScope= $('input[name="adddataScope"]:checked').val().toString();
+            // this.status = $('#addstatus').val();
+            this.status =$('input[name="addstatus"]:checked').val().toString();
             this.createBy = $('#createBy').val();
             this.updateBy = $('#updateBy').val();
             this.remark = $('#remark').val();
@@ -493,8 +571,10 @@
                 modal.find(' #roleId' ).val(date.roleId);
                 modal.find(' #roleName' ).val(date.roleName);
                 modal.find(' #roleSort' ).val(date.roleSort);
-                modal.find(' #dataScope' ).val(date.dataScope);
-                modal.find(' #status' ).val(date.status);
+                // modal.find(' #dataScope' ).val(date.dataScope);
+                // modal.find(' #status' ).val(date.status);
+                $("input[name=\"dataScope\"][value="+date.dataScope+"]").attr("checked","checked");
+                $("input[name=\"status\"][value="+date.status+"]").attr("checked","checked");
                 modal.find(' #createBy' ).val(date.createBy);
                 modal.find(' #updateBy' ).val(date.updateBy);
                 modal.find(' #remark' ).val(date.remark);
@@ -515,8 +595,10 @@
         function addRole(){
             this.roleName = $('#addroleName').val();
             this.roleSort= $('#addroleSort').val();
-            this.dataScope = $('#adddataScope').val();
-            this.status = $('#addstatus').val();
+            // this.dataScope = $('#adddataScope').val();
+            this.dataScope= $('input[name="adddataScope"]:checked').val().toString();
+            // this.status = $('#addstatus').val();
+            this.status =$('input[name="addstatus"]:checked').val().toString();
             this.createBy = $('#addcreateBy').val();
             this.updateBy = $('#addupdateBy').val();
             this.remark = $('#addremark').val();

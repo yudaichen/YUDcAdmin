@@ -54,6 +54,10 @@ public class SysUserController extends AbstractController {
     @RequiresPermissions("system:user:add")
     public String addUser(Model model,@RequestBody SysUser sysUser,HttpServletRequest request){
       try {
+          if(sysUser.getUserType().equals("0"))
+              sysUser.setUserType("00");
+          if(sysUser.getUserType().equals("1"))
+              sysUser.setUserType("01");
             boolean sava = sysUserService.save(sysUser);
           return "ok";
         }catch(Exception e){
