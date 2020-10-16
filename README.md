@@ -8,10 +8,10 @@
 你只用修改System_provide下的application.yml，spring.datasource.url：修改为你的数据连接就OK了
 
 下面是演示图片：
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1015/091157_ca8a93e0_7620104.png "I9{6%5)}R]C@{L0]5~RTD4A.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1016/173017_c67ff2a0_7620104.png "屏幕截图.png")
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1015/091229_35d7ea6c_7620104.png "`(JU[824R}%KQK8YIG3NMFT.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1016/173055_a425f511_7620104.png "屏幕截图.png")
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1015/091300_a921d411_7620104.png "8IL%@{(}~3J68YT[KXTQ2`X.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1016/173113_85aec5f7_7620104.png "屏幕截图.png")
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/1015/091311_2eebb6df_7620104.png "988PQ{D}`4XM]GB3LB%3XGQ.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1016/173139_e01b6920_7620104.png "屏幕截图.png")
